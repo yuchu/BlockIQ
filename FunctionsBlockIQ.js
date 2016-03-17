@@ -22,3 +22,25 @@ var resetMap = function() {
   });
   myMarkers = [];
 };
+
+//Search Function
+new L.Control.GeoSearch({
+    provider: new L.GeoSearch.Provider.Google(),
+    position: 'topcenter',
+    showMarker: true,
+    retainZoomLevel: false
+}).addTo(map);
+
+//Load first page
+$(document).ready(function(){
+  $('#Scene1').show();
+  $('#Scene2').hide();
+});
+
+
+//Load Second Page on Click of function
+$('#ToQuizSlide').click(function(){
+  //If statement, give alert if geocoding failed
+  $('#Scene1').hide();
+  $('#Scene2').show();
+});
