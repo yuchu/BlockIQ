@@ -15,21 +15,53 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
   ext: 'png'
 }).addTo(map);
 
-//Reset map function
-var resetMap = function() {
-  _.each(myMarkers,function(mark){
-    map.removeLayer(mark);
-  });
-  myMarkers = [];
-};
 
 //Search Function
 new L.Control.GeoSearch({
     provider: new L.GeoSearch.Provider.Google(),
     position: 'topcenter',
     showMarker: true,
-    retainZoomLevel: false
+    retainZoomLevel: true
 }).addTo(map);
+
+var censusCall = "long lat empty";
+var tractCall = "tract empty";
+var FIPSCode = "No FIPS Code";
+
+//Get Long and Lat from center of map, then call FCC Block Converter API
+//On pressing enter in search bar
+$("#leaflet-control-geosearch-qry").keypress(function(e) {
+    if(e.which == 13) {
+    var latitude = map.getCenter().lat;
+    var longitude = map.getCenter().lng;
+    censusCall = "https://data.fcc.gov/api/block/find?format=jsonp&latitude=" + latitude +"&longitude="+ longitude + "&showall=false";
+    $.ajax({
+      url: censusCall,
+      type: 'GET',
+      dataType: 'jsonp',
+      crossDomain:true,
+      success: function (data, textStatus, xhr) {
+      FIPSCode= data.Block.FIPS;
+    }
+  });
+    var state = FIPSCode.substring(0,1);
+    tractCall = "http://api.census.gov/data/2010/sf1?key=ccda5ba8300d0a723e4cba2a1a0e7cf9b2768b46";
+    $.ajax({
+      url: tractCall,
+      type: 'GET',
+      dataType: 'jsonp',
+      crossDomain:true,
+      success: function (data, textStatus, xhr) {
+        console.log(data);
+    }
+  });
+
+}});
+
+
+
+
+
 
 //Load first page
 $(document).ready(function(){
