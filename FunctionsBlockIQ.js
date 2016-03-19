@@ -44,7 +44,7 @@ $("#leaflet-control-geosearch-qry").keypress(function(e) {
       FIPSCode= data.Block.FIPS;
       console.log(FIPSCode);
     }
-  });
+  }); /*
     var state = FIPSCode.substring(0,1);
     httpCensus = "http://api.census.gov/data/2014/acs1";
     censusKey = "&key=ccda5ba8300d0a723e4cba2a1a0e7cf9b2768b46";
@@ -59,7 +59,7 @@ $("#leaflet-control-geosearch-qry").keypress(function(e) {
       success: function (data, textStatus, xhr) {
         console.log(data);
     }
-  });
+  });*/
 
 }});
 
