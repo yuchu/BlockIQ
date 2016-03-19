@@ -42,10 +42,15 @@ $("#leaflet-control-geosearch-qry").keypress(function(e) {
       crossDomain:true,
       success: function (data, textStatus, xhr) {
       FIPSCode= data.Block.FIPS;
+      console.log(FIPSCode);
     }
-  });
+  }); /*
     var state = FIPSCode.substring(0,1);
-    tractCall = "http://api.census.gov/data/2010/sf1?key=ccda5ba8300d0a723e4cba2a1a0e7cf9b2768b46";
+    httpCensus = "http://api.census.gov/data/2014/acs1";
+    censusKey = "&key=ccda5ba8300d0a723e4cba2a1a0e7cf9b2768b46";
+    params = "?get=NAME,B01001_001E&for=state:*"; //Test parameters
+    tractCall = httpCensus + params + censusKey;
+    console.log(tractCall);
     $.ajax({
       url: tractCall,
       type: 'GET',
@@ -54,7 +59,7 @@ $("#leaflet-control-geosearch-qry").keypress(function(e) {
       success: function (data, textStatus, xhr) {
         console.log(data);
     }
-  });
+  });*/
 
 }});
 
