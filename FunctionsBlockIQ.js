@@ -44,11 +44,11 @@ $("#leaflet-control-geosearch-qry").keypress(function(e) {
       FIPSCode= data.Block.FIPS;
       console.log(FIPSCode);
     }
-  }); /*
+  });
     var state = FIPSCode.substring(0,1);
-    httpCensus = "http://api.census.gov/data/2014/acs1";
+    httpCensus = "http://api.census.gov/data/2014/acs5/profile";
     censusKey = "&key=ccda5ba8300d0a723e4cba2a1a0e7cf9b2768b46";
-    params = "?get=NAME,B01001_001E&for=state:*"; //Test parameters
+    params = "?get=DP02_0001PE&for=state"; //Test parameters
     tractCall = httpCensus + params + censusKey;
     console.log(tractCall);
     $.ajax({
@@ -59,7 +59,7 @@ $("#leaflet-control-geosearch-qry").keypress(function(e) {
       success: function (data, textStatus, xhr) {
         console.log(data);
     }
-  });*/
+  });
 
 }});
 
