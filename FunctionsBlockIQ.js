@@ -42,6 +42,7 @@ $("#leaflet-control-geosearch-qry").keypress(function(e) {
       crossDomain:true,
       success: function (data, textStatus, xhr) {
       FIPSCode= data.Block.FIPS;
+      console.log(FIPSCode);
     }
   });
     var state = FIPSCode.substring(0,1);
