@@ -28,6 +28,32 @@ var censusCall = "long lat empty";
 var tractCall = "tract empty";
 var FIPSCode = "No FIPS Code";
 
+var processFIPSCode = function(FIPSCode) {
+  console.log(FIPSCode);
+  var state = FIPSCode.substring(0,2);
+  var county = FIPSCode.substring(2,5);
+  var tract = FIPSCode.substring(5,11);
+  var block = FIPSCode.substring(11,15);
+  FIPStoinfo(state,county,tract);
+};
+
+var FIPStoinfo = function(state,county,tract){
+  httpCensus = "http://api.census.gov/data/2014/acs5";
+  censusKey = "&key=ccda5ba8300d0a723e4cba2a1a0e7cf9b2768b46";
+  params = "?get=B25119_001E&"; //Test parameters
+  geography = "for=tract:" + tract + "&in=state:" + state+ "+county:" + county;
+  tractCall = httpCensus + params + geography + censusKey;
+  console.log(tractCall);
+  $.ajax({
+    url: tractCall,
+    crossDomain:true,
+    success: function (data, textStatus, xhr) {
+      console.log(data);
+  }
+});
+};
+
+
 //Get Long and Lat from center of map, then call FCC Block Converter API
 //On pressing enter in search bar
 $("#leaflet-control-geosearch-qry").keypress(function(e) {
@@ -41,29 +67,11 @@ $("#leaflet-control-geosearch-qry").keypress(function(e) {
       dataType: 'jsonp',
       crossDomain:true,
       success: function (data, textStatus, xhr) {
-      FIPSCode= data.Block.FIPS;
-      console.log(FIPSCode);
+      FIPSCode = data.Block.FIPS;
+      processFIPSCode(FIPSCode);
     }
   });
-    var state = FIPSCode.substring(0,1);
-    httpCensus = "http://api.census.gov/data/2014/acs5/profile";
-    censusKey = "&key=ccda5ba8300d0a723e4cba2a1a0e7cf9b2768b46";
-    params = "?get=DP02_0001PE&for=state"; //Test parameters
-    tractCall = httpCensus + params + censusKey;
-    console.log(tractCall);
-    $.ajax({
-      url: tractCall,
-      type: 'GET',
-      dataType: 'jsonp',
-      crossDomain:true,
-      success: function (data, textStatus, xhr) {
-        console.log(data);
-    }
-  });
-
 }});
-
-
 
 
 
