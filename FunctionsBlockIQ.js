@@ -40,7 +40,11 @@ var processFIPSCode = function(FIPSCode) {
 var FIPStoinfo = function(state,county,tract){
   httpCensus = "http://api.census.gov/data/2014/acs5";
   censusKey = "&key=ccda5ba8300d0a723e4cba2a1a0e7cf9b2768b46";
-  params = "?get=B25119_001E&"; //Test parameters
+  population = "B01003_001E";
+  medianAge = "B01002_001E";
+
+
+  params = "?get=" + population + "," + medianAge + "&";
   geography = "for=tract:" + tract + "&in=state:" + state+ "+county:" + county;
   tractCall = httpCensus + params + geography + censusKey;
   console.log(tractCall);
