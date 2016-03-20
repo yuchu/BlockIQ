@@ -4,6 +4,10 @@ body {
     font-family: helvetica, arial, sans-serif;
 }
 
+#addressInput{
+  position:absolute;
+}
+
 .map {
     position: absolute;
     margin-top: 5%;
